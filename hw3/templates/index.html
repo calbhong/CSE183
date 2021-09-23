@@ -1,0 +1,47 @@
+[[extend 'layout.html']]
+
+<div class="section">
+
+   <a class="button is-success" href="[[=URL('add')]]">
+     <span class="icon"><i class="fa fa-plus"></i></span>
+     <span>Add</span>
+   </a>
+ 
+   <div class="container">
+     <table class="table is-striped is-fullwidth">
+       <tr>
+         <th>Bird Species</th>
+         <th>Weight</th>
+         <th>Diet</th>
+         <th>Habitat</th>
+         <th>Sightings</th>
+         <th>Seen By</th>
+         <th></th>
+         <th></th>
+       </tr>
+       [[for row in rows:]]
+       <tr>
+         <td>[[=row.bird_name]]</td>
+         <td>[[=row.weight]]</td>
+         <td>[[=row.diet]]</td>
+         <td>[[=row.habitat]]</td>
+         <td>[[=row.bird_count]]</td>
+         <td>[[=row.created_by]]</td>
+         <td>
+           <a class="button" href="[[=URL('edit', row.id, signer=url_signer)]]">
+             <span class="icon"><i class="fa fa-fw fa-pencil"></i></span> <span>Edit</span>
+           </a>
+         </td>
+         <td>
+           <a class="button" href="[[=URL('inc', row.id, signer=url_signer)]]">
+             <span class="icon"><i class="fa fa-fw fa-plus"></i></span>
+           </a>
+         </td>
+       </tr>
+       [[pass]]
+     </table>
+   </div>
+ 
+ 
+ 
+ </div>

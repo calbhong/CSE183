@@ -1,0 +1,49 @@
+[[extend 'layout.html']]
+
+<div class="section" id="vue-target">
+  <h1 class="title">Postlandia</h1>
+  <div v-if="add_mode" class="container block">
+    <div class="form">
+      <div class="field">
+        <div class="control">
+          <textarea type="text" v-model="add_post_text" class="textarea" placeholder="Enter new post here"></textarea>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input type="submit" @click="add_post" value="Post" class="button is-primary">
+          <input type="submit" @click="set_add_status(false)" value="Cancel" class="button is-warning">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-else class="container block">
+    <button @click="set_add_status(true)" class="button is-primary">
+      <i class="fa fa-plus fa-fw"></i>
+    </button>
+  </div>
+
+  <div v-for="r in rows.slice().reverse()" class="notification">
+    <div>{{r.post_text}}</div>
+    <div>{{r.author_name}}</div>
+    <div>
+        <i v-if="r.rating != 1" @click="set_rating(r._idx, [[=int('1')]])" class="fa fa-thumbs-o-up has-text-info"></i>
+        <i v-else class="fa fa-thumbs-up has-text-info"></i>
+        <i v-if="r.rating != -1" @click="set_rating(r._idx, [[=int('-1')]])" class="fa fa-thumbs-o-down has-text-info"></i>
+        <i v-else class="fa fa-thumbs-down has-text-info"></i>
+      <i v-if="r.email === '[[=globals().get('user').get('email')]]'"
+        i @click="delete_post(r._idx,r.auth_id)" class="fa fa-trash is-pulled-right has-text-danger"></i> 
+    </div>
+  </div>
+</div>
+
+[[block page_scripts]]
+<script>
+  let load_posts_url = "[[=XML(load_posts_url)]]";
+  let add_post_url = "[[=XML(add_post_url)]]";
+  let delete_post_url = "[[=XML(delete_post_url)]]";
+  let set_rating_url = "[[=XML(set_rating_url)]]";
+  let get_rating_url = "[[=XML(get_rating_url)]]";
+</script>
+<script src="js/index.js"></script>
+[[end]]
